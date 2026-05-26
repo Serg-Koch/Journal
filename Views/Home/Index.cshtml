@@ -1,0 +1,70 @@
+@model Journal.Models.PaginatedList<Journal.Models.Note>
+@using Ganss.Xss
+@inject IHtmlSanitizer Sanitizer
+
+@{
+    Layout = "_UserLayout";
+    ViewData["Title"] = "Heimseite";
+}
+<div class="container mt-4">
+    <h1>Blog</h1>
+    <div class="row">
+    @foreach (var item in Model)
+    {
+        if(item.IsPublished)
+        {
+            {
+                <div class="offcanvas offcanvas-top-blog" id="note-@item.Id">
+                    <div class="offcanvas-header">
+                    <h1 class="offcanvas-title">@item.Title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                    <p>@item.CreateDate.ToString("dd.MM.yyyy")</p>
+                    @Html.Raw(Sanitizer.Sanitize(item.Content))
+                    </div>
+                </div>
+            <div class="col-lg-4 mb-4">
+            <div style="width: 400px; height: 500px; display: flex; flex-direction: column;">
+                @*Image*@
+                @if(@item.ThumbnailUrl == "" || System.IO.File.Exists(item.ThumbnailUrl))
+                  {
+                    <div class = "img-position">
+                        <img class="img-thumbnail-render" loading="lazy" src="/uploads/f5abffe2-4933-42d0-b10f-ca33d915c9ef.png" alt="" >
+                    </div>
+                }
+                else
+                {
+                    <div class = "img-position">
+                        <img class="img-thumbnail-render" loading="lazy" src="@item.ThumbnailUrl" alt="" >
+                    </div>
+                }
+                @*Buttons*@
+                <div class="buttons-render">
+                    <h4 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h4>
+                    <p class="card-text-truncate">@Html.DisplayFor(modelItem => item.Introduce)</p>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="offcanvas" 
+                            data-bs-target="#note-@item.Id" style="width: 100%">Lesen</button>
+                </div>
+            </div>
+        </div>
+        }
+        }
+    }
+    @{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+    <div class="container d-flex justify-content-between">
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       class="btn btn-dark @prevDisabled">
+        Vorletzte Seite
+    </a>
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       class="btn btn-dark @nextDisabled">
+       Nächste Seite 
+    </a>
+    </div>
+</div>

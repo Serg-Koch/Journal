@@ -1,0 +1,17 @@
+@model Journal.Models.Note
+@using Ganss.Xss
+@inject IHtmlSanitizer Sanitizer
+
+@{
+    Layout = "_UserLayout";
+    ViewData["Title"] = Model.Title;
+}
+<div class="container justify-content-center">
+    <div class="mb-4">
+        <h2>@Html.DisplayFor(model => model.Title)</h2>
+        <p>@Model.CreateDate.ToString("dd.MM.yyyy")</p>
+    <div class="mb-4">@Html.Raw(Sanitizer.Sanitize(Model.Content))</div>
+    <div>
+        <a class="btn btn-primary" asp-controller="Article" asp-action="Index">Zu Artickeln</a>
+    </div>
+</div>

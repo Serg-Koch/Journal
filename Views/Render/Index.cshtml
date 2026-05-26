@@ -1,0 +1,52 @@
+@model Journal.Models.PaginatedList<Journal.Models.ImageAsset>
+
+@{
+    Layout = "_UserLayout";
+    ViewData["Title"] = "Galerie";
+}
+<div class="container mt-4">
+    <h1>Galerie</h1>
+    <div class="row ">
+    @foreach (var item in Model)
+    {
+        <div class="offcanvas offcanvas-top-image" id="image-@item.Id">
+            <div class="offcanvas-header">
+                <h4>@item.ImageName</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                <img src="@item.Url" class="rounded">
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div style="width: 400px; height: 500px; display: flex; flex-direction: column;">
+                @*Image*@
+                <div class = "img-position">
+                    <img src="@item.Url" class="img-thumbnail-render" loading="lazy" alt="Vorschaubild">
+                </div>
+                @*Buttons*@
+                <div class="buttons-render">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="offcanvas" 
+                            data-bs-target="#image-@item.Id" style="width: 100%">Vorschauen</button>
+                    <a class="btn btn-danger" href="@item.Url" target="_blank" style="width: 100%">Volle Größe</a>
+                </div>
+            </div>
+        </div>
+    }
+    @{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <div class="container mt-4 d-flex justify-content-between">
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       class="btn btn-dark @prevDisabled">
+        Vorletzte Seite
+    </a>
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       class="btn btn-dark @nextDisabled">
+       Nächste Seite 
+    </a>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+@model Journal.Models.Note
+@using Ganss.Xss
+@inject IHtmlSanitizer Sanitizer
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Details";
+}
+
+<div class="mt-4">
+    <h1>Voransicht: "@Model.Title"</h1>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model?.Id">Bearbeiten</a>
+    <div align = "center">
+        <h2>@Html.DisplayFor(model => model.Title)</h2>
+        <p>@Html.DisplayFor(model => model.CreateDate)</p>
+        @Html.Raw(Sanitizer.Sanitize(Model.Content))
+    </div>
+</div>
+

@@ -1,0 +1,7 @@
+@page "/access-denied"
+
+@if(!User.IsInRole("Admin"))
+{
+    <h1 class = "mt-4">Keine Berechtigung.</h1>
+    <h2>Wenden Sie an den Administrator.</h2>
+}

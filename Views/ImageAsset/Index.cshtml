@@ -1,0 +1,63 @@
+@model Journal.Models.PaginatedList<Journal.Models.ImageAsset>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Bilder";
+}
+<div class="container mt-4">
+    <h1>Bildertheke</h1>
+    <a class="btn btn-danger mb-4" asp-controller = "ImageAsset" asp-action="Upload">Bild hochladen</a>
+    <div class="d-flex justify-content-end align-items-center mb-4">
+        <span class="badge bg-secondary">Anzahl der Bilder: @Model.Count()</span>
+    </div>
+    
+    <div class="row">
+        @if (!Model.Any())
+        {
+            <div class="col-12 text-center text-muted">
+                <p>Nichts wurde noch hochgeladen</p>
+            </div>
+        }
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div style="height: 180px; overflow: hidden; background: #f8f9fa;">
+                        <img src="@item.Url" class="card-img-top" loading="lazy" style="object-fit: contain; height: 100%;" alt="Image">
+                    </div>
+                    
+                    <div class="card-body">
+                        <label class="small fw-bold">Pfad für einen Artikel:</label>
+                        <input type="text" value="@item.Url" class="form-control form-control-sm mb-2" readonly />
+                        <div class="text-muted" style="font-size: 0.75rem;">
+                            ID: @item.Id | @item.UploadedAt.ToString("g")
+                        </div>
+                        <div>Titel: @item.ImageName</div>
+                        <div>Typ: @item.Type</div>
+                        <a class="nav-item btn btn-success btn-sm w-100" asp-controller = "ImageAsset" asp-action="Edit" asp-route-id="@item.Id">Bearbeiten</a>
+                    </div>
+
+                    <div class="card-footer bg-white border-top-0">
+                        <a class= "btn btn-outline-danger btn-sm w-100" asp-action="Delete" asp-route-id="@item.Id">Löschen</a>
+                    </div>
+                </div>
+            </div>
+        }
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }       
+            <div class="container d-flex justify-content-between">
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               class="btn btn-dark @prevDisabled">
+                Vorletzte Seite
+            </a>
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               class="btn btn-dark @nextDisabled">
+               Nächste Seite 
+            </a>
+    </div>
+    </div>
+</div>

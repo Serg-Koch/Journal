@@ -1,0 +1,15 @@
+@using Microsoft.AspNetCore.Identity
+@model AccountManager
+@{
+    Layout = "_AdminLayout";
+}
+<h1>Ein Konto entfernen</h1>
+
+<h3>Wollen Sie wirklich das Konto @Model.UserName entfernen?</h3>
+<div>
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id"/>
+        <input type="submit" value="Entfernen" class="btn btn-danger" /> |
+        <a asp-action="Index">Abbrechen</a>
+    </form>
+</div>

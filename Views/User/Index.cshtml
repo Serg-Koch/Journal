@@ -1,0 +1,35 @@
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUser>
+@{
+    Layout = "_AdminLayout";
+}
+<h1>Benutzer</h1>
+
+<p>
+    <a class = "btn btn-primary" asp-controller="User" asp-action="Create">Benutzer hinzufügen</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <span>E-Mail</span>
+            </th>
+            <th>
+                <span>Aktionen</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                <a class = "btn btn-success" asp-controller="User" asp-action="ResetPassword" asp-route-id="@item.Id">Passwort ändern</a>
+                <a class = "btn btn-danger"asp-controller="User" asp-action="Delete" asp-route-id="@item.Id">Konto entfernen</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

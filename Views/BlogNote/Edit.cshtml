@@ -1,0 +1,57 @@
+@model Journal.Models.Note
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Edit";
+}
+<div class="mt-4">
+    <h1>Bearbeitung: "@Model.Title"</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Introduce" class="control-label"></label>
+                    <input asp-for="Introduce" class="form-control" />
+                    <span asp-validation-for="Introduce" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label"></label>
+                    <textarea rows="15" asp-for="Content" class="form-control" style="width: 200%;"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ThumbnailUrl" class="control-label"></label>
+                    <input asp-for="ThumbnailUrl" class="form-control" />
+                    <span asp-validation-for="ThumbnailUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Type" class="control-label"></label>
+                    <select asp-for="Type" asp-items="Html.GetEnumSelectList<NoteType>()" class="form-control"></select>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a class = "btn btn-success" asp-action="Index">Zurück zu Artikeln</a>
+                </div>
+            </form>
+        </div>
+</div>
+
+<div>
+    
+</div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

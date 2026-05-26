@@ -1,0 +1,12 @@
+@model ImageAsset
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Bilder";
+}
+Willst du echt das Bild löschen? Andere Artikeln vermutlich das Bild benutzen'
+<div class="card-footer bg-white border-top-0">
+                        <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+                            <button type="submit" class="btn btn-outline-danger btn-sm w-100">Löschen</button>
+                        </form>
+                    </div>
