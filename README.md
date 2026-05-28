@@ -23,4 +23,24 @@
     <li>Bootstrap 5</li>
     <li>JavaScript</li>
 </ul>
-
+<h3>Screenshots</h3>
+<ul>
+    <li>
+        <b>Hauptseite</b>
+        <p>
+            <img src="Screenschots/main_page.png">
+        </p>
+    </li>
+    <li>
+        <b>Galerie</b>
+        <p>
+            <img src="/Screenschots/Galerie.png">
+        </p>
+    </li>
+    <li>
+        <b>Bild-Upload</b>
+        <p>
+            <img src="/Screenschots/ImageAsset.png">
+        </p>
+    </li>
+</ul>

@@ -37,6 +37,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/access-denied";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     options.SlidingExpiration = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
 });
 builder.WebHost.ConfigureKestrel(serverConfig =>
 {
