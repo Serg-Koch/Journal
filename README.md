@@ -12,8 +12,7 @@
     <li>Artikel- und Notizverwaltung</li>
     <li>Bild-Upload</li>
     <li>Präsentation von 3D-Renderings und Animationen</li>
-    <li>Eigenes Micro-CMS</li>
-    <li>Responsive Design</li>
+    <li>Micro-CMS</li>
 </ul>
 
 <h3>Tech Stack</h3>
