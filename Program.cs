@@ -5,7 +5,6 @@ using Ganss.Xss;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Security;
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddDbContext<Journal.Data.JournalContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("JournalContext") ?? throw new InvalidOperationException("Connection string 'JournalContext' not found.")));
 
@@ -17,7 +16,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
     options.Password.RequiredLength = 16;
     options.Password.RequiredUniqueChars = 1;
     
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 
@@ -38,7 +37,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     options.SlidingExpiration = true;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-
 });
 builder.WebHost.ConfigureKestrel(serverConfig =>
 {
@@ -63,8 +61,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
 
-app.MapRazorPages();
-
+app.MapRazorPages(); 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
